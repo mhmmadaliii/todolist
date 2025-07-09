@@ -1,22 +1,241 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>List Kegiatan</title>
+    <title>Undangan Tasyakuran Rumah Baru</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #d1ae96;
+        color: #333;
+      }
+
+      .hidden {
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .visible {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto;
+        transition: opacity 1s ease;
+      }
+
+      #sampul,
+      #content {
+        transition: opacity 1s ease;
+      }
+
+      #sampul {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url("https://images.unsplash.com/photo-1504198453319-5ce911bafcde?auto=format&fit=crop&w=1600&q=80") no-repeat center center/cover;
+        height: 100vh;
+        flex-direction: column;
+        text-align: center;
+        color: #6b3e1e;
+        padding: 20px;
+      }
+
+      #sampul h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 40px;
+        margin: 0;
+        text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      }
+
+      #sampul button {
+        padding: 14px 28px;
+        font-size: 16px;
+        background-color: #6b3e1e;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        font-family: "Poppins", sans-serif;
+      }
+
+      header {
+        background: linear-gradient(135deg, #ffe9d2, #fbe3b9);
+        padding: 60px 20px 40px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-family: "Playfair Display", serif;
+        margin: 0;
+        font-size: 32px;
+        color: #6b3e1e;
+      }
+
+      header p {
+        font-size: 18px;
+        margin-top: 10px;
+        font-family: "Poppins", sans-serif;
+      }
+
+      section {
+        padding: 30px 20px;
+        max-width: 600px;
+        margin: auto;
+      }
+
+      .box {
+        background-color: white;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
+        font-size: 22px;
+        color: #4b2d0b;
+        margin-top: 0;
+        font-family: "Playfair Display", serif;
+      }
+
+      .info p {
+        margin: 8px 0;
+        font-size: 16px;
+      }
+
+      footer {
+        text-align: center;
+        padding: 20px;
+        font-size: 14px;
+        color: #777;
+      }
+
+      .btn {
+        display: inline-block;
+        margin-top: 15px;
+        padding: 12px 20px;
+        background-color: #6b3e1e;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+      }
+
+      /* Animasi Fade Up */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .animate-fade-up {
+        animation: fadeUp 1s ease both;
+      }
+
+      @media screen and (max-width: 480px) {
+        header h1 {
+          font-size: 26px;
+        }
+
+        #sampul h1 {
+          font-size: 28px;
+        }
+      }
+    </style>
+    <script>
+      function bukaUndangan() {
+        const sampul = document.getElementById("sampul");
+        const content = document.getElementById("content");
+        const audio = document.getElementById("bgm");
+
+        sampul.classList.remove("visible");
+        sampul.classList.add("hidden");
+
+        content.classList.remove("hidden");
+        content.classList.add("visible");
+
+        // Tambahkan animasi saat konten muncul
+        const animatedElements = content.querySelectorAll(".animate-on-load");
+        animatedElements.forEach((el, index) => {
+          setTimeout(() => {
+            el.classList.add("animate-fade-up");
+          }, 300 + index * 300);
+        });
+
+        // Putar musik
+        audio.play().catch((e) => {
+          console.log("Audio tidak bisa autoplay:", e);
+        });
+      }
+    </script>
   </head>
   <body>
-    <div class="container">
-      <div class="todo-app">
-        <h2>List Kegiatan</h2>
-        <div class="row">
-          <input type="text" id="input-box" placeholder="ada Kegiatan apa nihh..." />
-          <button id="tomboladd" onclick="addTask()">tambahkan</button>
-        </div>
-        <ul id="list-container"></ul>
-      </div>
+    <!-- 🎵 Musik Latar -->
+    <audio id="bgm" loop style="display: none">
+      <source src="https://cdn.pixabay.com/download/audio/2023/03/07/audio_1aab6d59bb.mp3?filename=peaceful-islamic-background-140062.mp3" type="audio/mpeg" />
+      Browser Anda tidak mendukung audio.
+    </audio>
+
+    <!-- Sampul -->
+    <div id="sampul" class="visible">
+      <h1>Tasyakuran Rumah Baru</h1>
+      <br />
+      <button onclick="bukaUndangan()">Buka Undangan</button>
     </div>
-    <script src="script.js"></script>
+
+    <!-- Isi Undangan -->
+    <div id="content" class="hidden">
+      <header class="animate-on-load">
+        <h1>Tasyakuran Rumah Baru</h1>
+        <p>
+          Assalamualaikum Wr. Wb.<br />
+          Dengan memohon rahmat dan ridho Allah SWT,<br />
+          kami mengundang Bapak/Ibu/Saudara(i) untuk hadir dalam acara kami.
+        </p>
+      </header>
+
+      <section>
+        <div class="box info animate-on-load">
+          <h2>📌 Detail Acara</h2>
+          <p><strong>📅 Hari/Tanggal:</strong> Minggu, 13 Juli 2025</p>
+          <p><strong>🕛 Waktu:</strong> Pukul 12.00 - Selesai</p>
+          <p><strong>🏠 Tempat:</strong> Perumahan Griya Raihan, Barombong, Blok A No. 127</p>
+          <a href="https://maps.app.goo.gl/YgdwZizWsiupvebh7?g_st=iw" target="_blank" class="btn">Lihat Lokasi di Google Maps</a>
+        </div>
+
+        <div class="box animate-on-load">
+          <h2>🌸 Ucapan dan Doa</h2>
+          <p>Puji syukur kami panjatkan ke hadirat Allah SWT atas nikmat dan karunia-Nya. Shalawat serta salam senantiasa tercurah kepada Nabi Muhammad SAW.</p>
+          <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami, apabila Bapak/Ibu/Saudara(i) berkenan hadir.</p>
+        </div>
+
+        <div class="box animate-on-load">
+          <h2>🤝 Yang Mengundang</h2>
+          <p>Bpk. Yayat Hidayatullah & Ibu Ais</p>
+        </div>
+      </section>
+
+      <footer class="animate-on-load">
+        Jazaakumullahu khoiron katsiiron<br />
+        Wassalamualaikum Wr. Wb.
+      </footer>
+    </div>
   </body>
 </html>
